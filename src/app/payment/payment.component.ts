@@ -86,11 +86,20 @@ export class PaymentComponent implements OnInit {
 
     try {
       // Create a PaymentIntent on your backend
-      const paymentIntent = await firstValueFrom(
-        this.http.post<{ clientSecret: string }>('/api/create-payment-intent', {
-          amount: 2500,
-        })
-      );
+      // const paymentIntent = await firstValueFrom(
+      //   this.http.post<{ clientSecret: string }>(
+      //     'https://astonishing-selkie-3a9452.netlify.app/.netlify/functions/create-payment-intent',
+      //     {
+      //       amount: 2500,
+      //     }
+      //   )
+      // );
+      const paymentIntent = await this.http
+        .post<{ clientSecret: string }>(
+          'https://astonishing-selkie-3a9452.netlify.app/.netlify/functions/create-payment-intent',
+          { amount: 2500 }
+        )
+        .toPromise();
 
       if (!paymentIntent) {
         this.cardError = 'Failed to create payment intent';
@@ -143,11 +152,12 @@ export class PaymentComponent implements OnInit {
 
     try {
       // Create PaymentIntent on backend
-      const paymentIntent = await firstValueFrom(
-        this.http.post<{ clientSecret: string }>('/api/create-payment-intent', {
-          amount: 2500,
-        })
-      );
+      const paymentIntent = await this.http
+        .post<{ clientSecret: string }>(
+          'https://astonishing-selkie-3a9452.netlify.app/.netlify/functions/create-payment-intent',
+          { amount: 2500 }
+        )
+        .toPromise();
 
       if (!paymentIntent) {
         this.cardError = 'Failed to create payment intent';
