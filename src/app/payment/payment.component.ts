@@ -44,7 +44,7 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private stripeService: StripeService,
+    public stripeService: StripeService,
     private http: HttpClient
   ) {
     this.paymentForm = this.fb.group({});

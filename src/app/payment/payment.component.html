@@ -4,14 +4,14 @@
     <!-- Card Input -->
     <ngx-stripe-card
       [options]="cardOptions"
-      [stripe]="stripe"
+      [stripe]="stripeService"
     ></ngx-stripe-card>
     <div *ngIf="cardError" style="color: red">{{ cardError }}</div>
 
     <!-- Apple Pay/Google Pay Button -->
     <ngx-stripe-payment-request-button
       *ngIf="paymentRequest"
-      [stripe]="stripe"
+      [stripe]="stripeService"
       [paymentRequest]="paymentRequest"
       (paymentMethod)="handlePaymentMethod($event)"
     >
