@@ -144,10 +144,9 @@ export class PaymentComponent implements OnInit {
     try {
       // Create PaymentIntent on backend
       const paymentIntent = await firstValueFrom(
-        this.http.post<{ clientSecret: string }>(
-          'http://localhost:3000/create-payment-intent',
-          { amount: 2500 }
-        )
+        this.http.post<{ clientSecret: string }>('/api/create-payment-intent', {
+          amount: 2500,
+        })
       );
 
       if (!paymentIntent) {
