@@ -14,6 +14,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment.stripe';
 
 @Component({
   selector: 'app-payment',
@@ -52,7 +53,7 @@ export class PaymentComponent implements OnInit {
 
   async ngOnInit() {
     // Load Stripe.js
-    this.stripe = await loadStripe('your-publishable-key-here'); // Replace with your Stripe publishable key
+    this.stripe = await loadStripe(environment.stripe.publishableKey); // Replace with your Stripe publishable key
     if (!this.stripe) {
       this.cardError = 'Failed to load Stripe';
       return;
@@ -86,10 +87,9 @@ export class PaymentComponent implements OnInit {
     try {
       // Create a PaymentIntent on your backend
       const paymentIntent = await firstValueFrom(
-        this.http.post<{ clientSecret: string }>(
-          'http://localhost:3000/create-payment-intent',
-          { amount: 2500 }
-        )
+        this.http.post<{ clientSecret: string }>('/api/create-payment-intent', {
+          amount: 2500,
+        })
       );
 
       if (!paymentIntent) {

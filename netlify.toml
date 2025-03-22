@@ -1,0 +1,9 @@
+[build]
+  command = "ng build --configuration production"
+  publish = "dist/stripe-payment-app/browser"  # Adjust based on your Angular project name
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
