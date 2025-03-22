@@ -1,0 +1,22 @@
+<div>
+  <h2>Pay with Stripe</h2>
+  <form [formGroup]="paymentForm" (ngSubmit)="pay()">
+    <!-- Card Input -->
+    <ngx-stripe-card
+      [options]="cardOptions"
+      [stripe]="stripe"
+    ></ngx-stripe-card>
+    <div *ngIf="cardError" style="color: red">{{ cardError }}</div>
+
+    <!-- Apple Pay/Google Pay Button -->
+    <ngx-stripe-payment-request-button
+      *ngIf="paymentRequest"
+      [stripe]="stripe"
+      [paymentRequest]="paymentRequest"
+      (paymentMethod)="handlePaymentMethod($event)"
+    >
+    </ngx-stripe-payment-request-button>
+
+    <button type="submit" [disabled]="loading">Pay $25</button>
+  </form>
+</div>
