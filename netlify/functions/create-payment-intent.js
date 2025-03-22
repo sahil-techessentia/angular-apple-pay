@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount, // Amount in cents
       currency: "usd",
-      payment_method_types: ["card", "apple_pay", "google_pay"],
+      payment_method_types: ["card"],
     });
 
     // Return the client secret to the frontend
