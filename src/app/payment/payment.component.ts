@@ -53,11 +53,14 @@ export class PaymentComponent implements OnInit {
 
   async ngOnInit() {
     // Load Stripe.js
-    this.stripe = await loadStripe(environment.stripe.publishableKey); // Replace with your Stripe publishable key
+    this.stripe = await loadStripe(environment.stripe.publishableKey);
     if (!this.stripe) {
       this.cardError = 'Failed to load Stripe';
       return;
     }
+
+    // Initialize Stripe service
+    this.stripeService.setKey(environment.stripe.publishableKey);
 
     // Check for Apple Pay/Google Pay support
     this.paymentRequest = this.stripe.paymentRequest({

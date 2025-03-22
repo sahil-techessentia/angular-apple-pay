@@ -5,6 +5,7 @@
     <ngx-stripe-card
       [options]="cardOptions"
       [stripe]="stripeService"
+      [complete]="true"
     ></ngx-stripe-card>
     <div *ngIf="cardError" style="color: red">{{ cardError }}</div>
 
