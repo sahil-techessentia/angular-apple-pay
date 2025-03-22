@@ -156,13 +156,12 @@ export class PaymentComponent implements OnInit {
       }
 
       // Confirm PaymentRequest payment (Apple Pay/Google Pay)
-      const result = await this.stripe.confirmPayment({
-        elements: await this.stripe.elements(),
-        clientSecret: paymentIntent.clientSecret,
-        confirmParams: {
-          return_url: 'http://localhost:4200/success',
-        },
-      });
+      const result = await this.stripe.confirmCardPayment(
+        paymentIntent.clientSecret,
+        {
+          payment_method: event.paymentMethod.id,
+        }
+      );
 
       if (result.error) {
         this.cardError = result.error.message || 'Payment failed';
